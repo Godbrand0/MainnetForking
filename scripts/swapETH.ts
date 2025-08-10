@@ -31,7 +31,7 @@ async function SwapEth() {
 
     const Router = await ethers.getContractAt("IUniSwap", UNIRouter);
     
-    const UNISWAPAmount = ethers.parseUnits("80", 18);
+    const UNISWAPAmount = ethers.parseUnits("200", 18);
 
     const UNISWAPApprove = await UNISWAP.connect(impersonatedSigner).approve(UNIRouter,UNISWAPAmount)
 
@@ -42,7 +42,7 @@ async function SwapEth() {
     const deadline = Math.floor(Date.now()/1000) +60 *10;
 
 
-    const SwapEth = await Router.connect(impersonatedSigner).swapExactETHForTokens(UNISWAPAmount,[wethAdress,UNISWAPAddress], AssetHolder, deadline, { value: ethers.parseEther("1") })
+    const SwapEth = await Router.connect(impersonatedSigner).swapETHForExactTokens(UNISWAPAmount,[wethAdress,UNISWAPAddress], AssetHolder, deadline, { value: ethers.parseEther("1") })
     
     const tx3 = await SwapEth.wait();
     console.log("swap eth receipt", tx3);
