@@ -13,14 +13,13 @@ async function Swap() {
     //UNISWAP contract Address
     const UNISWAPAddress = "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984";
 
-    //UNI/USDT
-    const UNIUSDT ="0x5ac13261c181a9c3938BfE1b649E65D10F98566B";
+   
 
     const UNIRouter = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
 
      const USDT = await ethers.getContractAt("IERC20", USDTAddress);
     const UNISWAP= await ethers.getContractAt("IERC20", UNISWAPAddress);
-    const UNIUSDTPOOL= await ethers.getContractAt("IERC20", UNIUSDT);
+    
 
 
  
@@ -49,7 +48,7 @@ async function Swap() {
     const deadline = Math.floor(Date.now()/1000) +60 *10;
 
     const swapTokens = await Router.connect(impersonatedSigner).swapExactTokensForTokens(
-        USDTAmount,0, [USDTAddress,UNISWAPAddress ], impersonatedSigner.address,deadline
+        USDTAmount,MIN_AMOUNT_OUT, [USDTAddress,UNISWAPAddress ], impersonatedSigner.address,deadline
     )
 
     const tx3 = await swapTokens.wait();
